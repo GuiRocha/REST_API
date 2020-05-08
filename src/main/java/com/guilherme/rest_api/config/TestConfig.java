@@ -1,9 +1,11 @@
 package com.guilherme.rest_api.config;
 
 
+import com.guilherme.rest_api.entity.Category;
 import com.guilherme.rest_api.entity.Order;
 import com.guilherme.rest_api.entity.User;
 import com.guilherme.rest_api.entity.enums.OrdersStatus;
+import com.guilherme.rest_api.repositories.CategoryRepository;
 import com.guilherme.rest_api.repositories.OrderRepository;
 import com.guilherme.rest_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +25,8 @@ public class TestConfig implements CommandLineRunner {
     private UserRepository userRepository;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private CategoryRepository categoryRepository;
 
 
     @Override
@@ -33,6 +37,9 @@ public class TestConfig implements CommandLineRunner {
         Order order = new Order(null, Instant.parse("2019-06-29T19:53:07Z"), user1, OrdersStatus.PAID);
         Order order1 = new Order(null, Instant.parse("2019-06-29T19:53:07Z"), user2, OrdersStatus.WAITING_PAYMENT);
 
+        Category category = new Category(null, "gui");
+
+        categoryRepository.saveAll(Arrays.asList(category));
         userRepository.saveAll(Arrays.asList(user1,user2));
         orderRepository.saveAll(Arrays.asList(order, order1));
     }
