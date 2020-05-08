@@ -3,6 +3,7 @@ package com.guilherme.rest_api.config;
 
 import com.guilherme.rest_api.entity.Order;
 import com.guilherme.rest_api.entity.User;
+import com.guilherme.rest_api.entity.enums.OrdersStatus;
 import com.guilherme.rest_api.repositories.OrderRepository;
 import com.guilherme.rest_api.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,8 +30,8 @@ public class TestConfig implements CommandLineRunner {
         User user1 = new User(null, "Bobby Brown", "boby@gmail.com", "1234321", "12345323");
         User user2 = new User(null, "Billy Brown", "nilly@gmail.com", "1234321", "3232345");
 
-        Order order = new Order(null, Instant.parse("2019-06-29T19:53:07Z"),user1);
-        Order order1 = new Order(null, Instant.parse("2019-06-29T19:53:07Z"), user2);
+        Order order = new Order(null, Instant.parse("2019-06-29T19:53:07Z"), user1, OrdersStatus.PAID);
+        Order order1 = new Order(null, Instant.parse("2019-06-29T19:53:07Z"), user2, OrdersStatus.WAITING_PAYMENT);
 
         userRepository.saveAll(Arrays.asList(user1,user2));
         orderRepository.saveAll(Arrays.asList(order, order1));

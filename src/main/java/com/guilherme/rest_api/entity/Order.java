@@ -1,6 +1,7 @@
 package com.guilherme.rest_api.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.guilherme.rest_api.entity.enums.OrdersStatus;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,6 +19,8 @@ public class Order implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
     private Instant moment;
 
+    private Integer ordersStatus;
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
@@ -25,10 +28,11 @@ public class Order implements Serializable {
     public Order() {
     }
 
-    public Order(Long id, Instant moment, User client) {
+    public Order(Long id, Instant moment, User client, OrdersStatus ordersStatus) {
         this.id = id;
         this.moment = moment;
         this.client = client;
+        setOrdersStatus(ordersStatus);
     }
 
     public Long getId() {
@@ -53,6 +57,16 @@ public class Order implements Serializable {
 
     public void setClient(User client) {
         this.client = client;
+    }
+
+    public OrdersStatus getOrdersStatus() {
+        return OrdersStatus.valueOf(ordersStatus);
+    }
+
+    public void setOrdersStatus(OrdersStatus ordersStatus) {
+        if (ordersStatus != null) {
+            this.ordersStatus = ordersStatus.getCode();
+        }
     }
 
     @Override
