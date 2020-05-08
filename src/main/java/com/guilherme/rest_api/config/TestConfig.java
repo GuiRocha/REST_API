@@ -3,11 +3,14 @@ package com.guilherme.rest_api.config;
 
 import com.guilherme.rest_api.entity.Category;
 import com.guilherme.rest_api.entity.Order;
+import com.guilherme.rest_api.entity.Product;
 import com.guilherme.rest_api.entity.User;
 import com.guilherme.rest_api.entity.enums.OrdersStatus;
 import com.guilherme.rest_api.repositories.CategoryRepository;
 import com.guilherme.rest_api.repositories.OrderRepository;
+import com.guilherme.rest_api.repositories.ProductRepository;
 import com.guilherme.rest_api.repositories.UserRepository;
+import com.guilherme.rest_api.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -27,7 +30,8 @@ public class TestConfig implements CommandLineRunner {
     private OrderRepository orderRepository;
     @Autowired
     private CategoryRepository categoryRepository;
-
+    @Autowired
+    private ProductRepository productRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -39,6 +43,9 @@ public class TestConfig implements CommandLineRunner {
 
         Category category = new Category(null, "gui");
 
+        Product product = new Product(null, "potato", "fresh fries", 12.90, "img");
+
+        productRepository.saveAll(Arrays.asList(product));
         categoryRepository.saveAll(Arrays.asList(category));
         userRepository.saveAll(Arrays.asList(user1,user2));
         orderRepository.saveAll(Arrays.asList(order, order1));
