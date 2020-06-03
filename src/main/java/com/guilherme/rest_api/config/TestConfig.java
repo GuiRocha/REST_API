@@ -40,13 +40,16 @@ public class TestConfig implements CommandLineRunner {
 
         Order order = new Order(null, Instant.parse("2019-06-29T19:53:07Z"), user1, OrdersStatus.PAID);
         Order order1 = new Order(null, Instant.parse("2019-06-29T19:53:07Z"), user2, OrdersStatus.WAITING_PAYMENT);
-
         Category category = new Category(null, "gui");
-
         Product product = new Product(null, "potato", "fresh fries", 12.90, "img");
 
         productRepository.saveAll(Arrays.asList(product));
         categoryRepository.saveAll(Arrays.asList(category));
+
+        product.getCategories().add(category);
+
+        productRepository.saveAll(Arrays.asList(product));
+
         userRepository.saveAll(Arrays.asList(user1,user2));
         orderRepository.saveAll(Arrays.asList(order, order1));
     }
